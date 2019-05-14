@@ -1,12 +1,12 @@
 # Evoko Home API docs
 
-API documentation for Evoko Home version: `v2.1.X`
+API documentation for Evoko Home version: `v2.1.x`
 
 - [Introduction](#introduction)
-- [Connecting to Evoko Home over DDP](#connecting)
-- [Register a new client group - `registerClientGroup2x`](#registerClientGroup2x)
+- [Connect to Evoko Home over DDP](#connect)
+- [Register a client group - `registerClientGroup2x`](#registerClientGroup2x)
 - [Register an integration user - `registerIntegrationUser`](#registerIntegrationUser)
-- [Subscribing to collections](#collections)
+- [Subscribe to collections](#collections)
 - [Create a meeting - `createBooking`](#createBooking)
 - [Update a meeting - `updateEvent`](#updateEvent)
 - [Delete a meeting - `deleteEvent`](#deleteEvent)
@@ -28,8 +28,8 @@ Evoko Home is the server side software necessary for using the Evoko Liso device
 
 Evoko Home attempts to follow [semantic versioning](https://semver.org/) (e.g. `v2.0.0`), for you as a developer this means that:
 
-- Breaking API changes can be expected at **major** versions (i.e. `v1.x.y`, `v2.x.y`, `v3.x.y`).
-- Non-breaking API additions at **minor** versions (i.e. `v2.0.x`, `v2.1.x`, `v2.2.x`).
+- Breaking API changes can be expected at **major** version bumps (i.e. `v1.x.y`, `v2.x.y`, `v3.x.y`).
+- Non-breaking API additions can occur at **minor** version bumps (i.e. `v2.0.x`, `v2.1.x`, `v2.2.x`).
 
 ### Evoko provides
 
@@ -44,7 +44,7 @@ Evoko Home attempts to follow [semantic versioning](https://semver.org/) (e.g. `
 
 <!-- TODO: Add info on how to submit API feature/improvement requests -->
 
-## <a name="connecting"></a> Connecting to Evoko Home via DDP
+## <a name="connect"></a> Connect to Evoko Home via DDP
 
 As mentioned in the introduction Evoko Home is built on full stack JavaScript framework [Meteor](https://www.meteor.com/) which uses the DDP protocol to communicate and is not your typical REST API. To connect and send request you will need to use a DDP client - _which one?_ you may ask, that's up to you to decide however in our examples we will use a [ddp client available on npm](https://www.npmjs.com/package/ddp).
 
@@ -115,7 +115,7 @@ Your token is valid for 90 days. The `id` represents your user (in our case `def
   type: 'password' }
 ```
 
-### Error response examples
+### Error response example
 
 ```js
 // Invalid or non-existing username
@@ -140,7 +140,7 @@ Your token is valid for 90 days. The `id` represents your user (in our case `def
   errorType: 'Meteor.Error' }
 ```
 
-## <a name="registerClientGroup2x"></a> Register a new client group - `registerClientGroup2x`
+## <a name="registerClientGroup2x"></a> Register a client group - `registerClientGroup2x`
 
 > 👉 **Note!** For authenticating with your own application, rather than registering your own integration group we recommend using the default API user (`defaultDevIntegrationUser`) and that you skip using this API method.
 
@@ -151,13 +151,17 @@ If the request is successful a response object will be received, if it fails it 
 ### Request example
 
 ```js
-ddpclient.call('registerClientGroup2x', ['myNewGroup'], function(err, result) {
-  if (result) {
-    console.log(result);
-  } else {
-    console.log(err);
+ddpclient.call(
+  'registerClientGroup2x',
+  ['myNewGroup'],
+  function(err, result) {
+    if (result) {
+      console.log(result);
+    } else {
+      console.log(err);
+    }
   }
-});
+);
 ```
 
 ### Response example
@@ -189,7 +193,7 @@ If the request is successful a response object will be received, if it fails it 
 
 ```js
 ddpclient.call(
-'registerIntegrationUser',
+  'registerIntegrationUser',
   ['zEd_vOJrwo4W3AbFsPPhpgRzacLwY7cfrQIIrxLDC7k'],
   function(err, result) {
     if (result) {
@@ -220,7 +224,7 @@ ddpclient.call(
      groupToken: 'zEd_vOJrwo4W3AbFsPPhpgRzacLwY7cfrQIIrxLDC7k' } }
 ```
 
-## <a name="collections"></a> Subscribing to collections
+## <a name="collections"></a> Subscribe to collections
 
 Evoko Home stores meetings, users, settings etc in what Meteor/MongoDB calls "collections". A collection can be considered as group or table and within a collection data can be stored sub-groups of JSON formatted "documents", each with its own unique ID.
 
@@ -238,7 +242,7 @@ To get a better understanding of the Evoko Home database structure you can use a
 
 | Name              | Collection key     | Parameters        | Comment |
 | ----------------- | -------------------| ------------------| --------|
-| `bookings`        | `allBookings`      | `roomId` or `ALL` | Contains all current meetings. Note that only meetings 7 days into the future synced to this collection from external booking system (e.g. Office 365). |
+| `bookings`        | `allBookings`      | `roomId` or `ALL` | Contains all current meetings. Note that only meetings 7 days into the future is synced to this collection from external booking system (e.g. Office 365). |
 | `rooms`           | `allRooms`         | `roomId` or `ALL` | Contains all rooms added in Evoko Home. |
 | `users`           | `users`            |                   | Contains all users added in Evoko Home. |
 | `settings`        | `specificSettings` | `roomId`          | Contains all settings profiles that are applied to rooms. |
@@ -250,11 +254,12 @@ To get a better understanding of the Evoko Home database structure you can use a
 ```js
 // Subscribes to the room with the roomId "MBPMGDaomwnHawrt6"
 ddpclient.subscribe(
-    'allRooms', 
-    ["MBPMGDaomwnHawrt6"],
-    function() {
-      console.log(ddpclient.collections.rooms);
-});
+  'allRooms',
+  ['MBPMGDaomwnHawrt6'],
+  function() {
+    console.log(ddpclient.collections.rooms);
+  }
+);
 ```
 
 ### Response example
@@ -310,13 +315,13 @@ If the request is successful a response object will be received, if it fails it 
 
 ```js
 ddpclient.call(
-  "createBooking",
+  'createBooking',
   [
     {
-      roomId: "MBPMGDaomwnHawrt6",
-      startDate: "2019-01-01T15:00:00:00+00:00",
-      endDate: "2019-01-01T15:30:00+00:00",
-      subject: "Fika meeting!",
+      roomId: 'MBPMGDaomwnHawrt6',
+      startDate: '2019-01-01T15:00:00:00+00:00',
+      endDate: '2019-01-01T15:30:00+00:00',
+      subject: 'Fika meeting!',
       confirmed: false,
       pin: 9999,
       rfid: null
@@ -458,12 +463,6 @@ ddpclient.call(
     }
   }
 );
-```
-
-### Response example
-
-```js
-undefined
 ```
 
 ## <a name="confirmMeeting"></a> Check-in a meeting - `confirmMeeting`
@@ -699,7 +698,7 @@ ddpclient.call(
 );
 ```
 
-### Response examples
+### Response example
 
 ```js
 // When reported as fixed
