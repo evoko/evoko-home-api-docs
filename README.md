@@ -1,6 +1,6 @@
 # Evoko Home API docs
 
-API documentation for Evoko Home version: `v2.1.x`
+API documentation for Evoko Home version: `v2.2.x`
 
 - [Introduction](#introduction)
 - [Connect to Evoko Home over DDP](#connect)
@@ -463,6 +463,14 @@ ddpclient.call(
     }
   }
 );
+```
+
+### Response example
+
+```js
+{ type: 'success',
+  message: 'MeetingSuccessDelete',
+  body: null }
 ```
 
 ## <a name="confirmMeeting"></a> Check-in a meeting - `confirmMeeting`
