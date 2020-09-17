@@ -100,7 +100,7 @@ ddpclient.connect(function(error, wasReconnect) {
       } else {
         console.log(err);
       }
-    }
+    });
 });
 ```
 
