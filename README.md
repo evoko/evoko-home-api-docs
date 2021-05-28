@@ -1,16 +1,16 @@
 # Evoko Home API docs
 
 - [Introduction](#introduction)
-- [Connect to Evoko Home over DDP](#connect)
-- [Register a client group - `registerClientGroup2x`](#registerClientGroup2x)
-- [Register an integration user - `registerIntegrationUser`](#registerIntegrationUser)
-- [Subscribe to collections](#collections)
-- [Create a meeting - `createBooking`](#createBooking)
-- [Update a meeting - `updateEvent`](#updateEvent)
-- [Delete a meeting - `deleteEvent`](#deleteEvent)
-- [Check-in a meeting - `confirmMeeting`](#confirmMeeting)
-- [Search for available rooms - `getAvailableRoomsAdvancedNew`](#getAvailableRoomsAdvancedNew)
-- [Edit room equipment status - `editRoomEquipmentReport`](#editRoomEquipmentReport)
+- [Connect to Evoko Home over DDP](#connect-to-evoko-home-via-ddp)
+- [Register a client group - `registerClientGroup2x`](#register-a-client-group---registerclientgroup2x)
+- [Register an integration user - `registerIntegrationUser`](#register-an-integration-user---registerintegrationuser)
+- [Subscribe to collections](#subscribe-to-collections)
+- [Create a meeting - `createBooking`](#create-a-meeting---createbooking)
+- [Update a meeting - `updateEvent`](#update-a-meeting---updateevent)
+- [Delete a meeting - `deleteEvent`](#delete-a-meeting---deleteevent)
+- [Check-in a meeting - `confirmMeeting`](#check-in-a-meeting---confirmmeeting)
+- [Search for available rooms - `getAvailableRoomsAdvancedNew`](#search-for-available-rooms---getavailableroomsadvancednew)
+- [Edit room equipment status - `editRoomEquipmentReport`](#edit-room-equipment-status---editroomequipmentreport)
 
 ## Introduction
 
